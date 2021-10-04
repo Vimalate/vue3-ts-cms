@@ -6,19 +6,19 @@ const Request = new requestClass({
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor: (config) => {
-      console.log("请求成功")
+      const token = ""
+      if (token && config.headers) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
-      console.log("请求失败")
       return err
     },
     responseInterceptor: (res) => {
-      console.log("响应成功")
       return res
     },
     responseInterceptorCatch: (err) => {
-      console.log("响应失败")
       return err
     }
   }
