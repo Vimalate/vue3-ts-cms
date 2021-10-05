@@ -1,13 +1,13 @@
-import { Module } from 'vuex'
+import { Module } from "vuex"
 import {
   requestListData,
   deleteListData,
   createPageData,
   editListData
-} from '@/service/main/system/system'
+} from "@/service/main/system/system"
 
-import type { ISystemState } from './types'
-import type { IRootState } from '@/store/types'
+import type { ISystemState } from "./types"
+import type { IRootState } from "@/store/types"
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -60,8 +60,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       const url = `/${pageName}/list`
       const listData = await requestListData(url, data)
 
-      const mutationName =
-        pageName.slice(0, 1).toUpperCase() + pageName.slice(1).toLowerCase()
+      const mutationName = pageName.slice(0, 1).toUpperCase() + pageName.slice(1).toLowerCase()
 
       commit(`change${mutationName}ListData`, listData.data.list)
       commit(`change${mutationName}Count`, listData.data.totalCount)
@@ -70,7 +69,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 删除数据
       await deleteListData(`/${pageName}/${id}`)
       // 数据更新
-      dispatch('getListData', {
+      dispatch("getListData", {
         pageName,
         data: {
           size: 10,
@@ -81,7 +80,7 @@ const systemModule: Module<ISystemState, IRootState> = {
     async createData({ dispatch }, { pageName, data }) {
       const result = await createPageData(`/${pageName}`, data)
       // 数据更新
-      dispatch('getListData', {
+      dispatch("getListData", {
         pageName,
         data: {
           size: 10,
@@ -92,7 +91,7 @@ const systemModule: Module<ISystemState, IRootState> = {
     async editData({ dispatch }, { pageName, id, data }) {
       const result = await editListData(`/${pageName}/${id}`, data)
       // 数据更新
-      dispatch('getListData', {
+      dispatch("getListData", {
         pageName,
         data: {
           size: 10,

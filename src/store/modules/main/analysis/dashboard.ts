@@ -1,13 +1,13 @@
-import { Module } from 'vuex'
-import { IRootState } from '@/store/types'
-import { IDashboardState } from './types'
+import { Module } from "vuex"
+import { IRootState } from "@/store/types"
+import { IDashboardState } from "./types"
 
 import {
   getCategoryGoodsCount,
   getCategoryGoodsSale,
   getCategoryGoodsFavor,
   getAddressGoodsSale
-} from '@/service/main/analysis/dashboard'
+} from "@/service/main/analysis/dashboard"
 
 const dashboardModule: Module<IDashboardState, IRootState> = {
   namespaced: true,
@@ -36,13 +36,13 @@ const dashboardModule: Module<IDashboardState, IRootState> = {
   actions: {
     async initializeDashboardData({ commit }) {
       const categoryGoodsCount = await getCategoryGoodsCount()
-      commit('changeCategoryGoodsCount', categoryGoodsCount.data)
+      commit("changeCategoryGoodsCount", categoryGoodsCount.data)
       const categoryGoodsSale = await getCategoryGoodsSale()
-      commit('changeCategoryGoodsSale', categoryGoodsSale.data)
+      commit("changeCategoryGoodsSale", categoryGoodsSale.data)
       const categoryGoodsFavor = await getCategoryGoodsFavor()
-      commit('changeCategoryGoodsFavor', categoryGoodsFavor.data)
+      commit("changeCategoryGoodsFavor", categoryGoodsFavor.data)
       const addressGoodsSale = await getAddressGoodsSale()
-      commit('changeAddressGoodsSale', addressGoodsSale.data)
+      commit("changeAddressGoodsSale", addressGoodsSale.data)
     }
   }
 }
