@@ -10,7 +10,10 @@ class localCache {
     }
   }
 
-  deleteCache() {
+  deleteCache(key: string) {
+    window.localStorage.removeItem(key)
+  }
+  clearCache() {
     window.localStorage.clear()
   }
 }

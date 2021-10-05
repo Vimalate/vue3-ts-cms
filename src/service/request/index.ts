@@ -79,7 +79,6 @@ export default class requestClass {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res)
           }
-          console.log(res)
           //2 保证下一次请求的默认值是true
           this.showLoading = true
           // 3 返回结果

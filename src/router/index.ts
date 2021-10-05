@@ -1,10 +1,12 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
+import localCache from "@/utils/localCache"
+import { ElMessage } from "element-plus"
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/login"
+    redirect: "/main"
   },
   {
     path: "/login",
@@ -24,6 +26,21 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+// 如果用户要去除了登录页面的其他页面则判断是否有token 没token就跳转登录页面进行登录
+router.beforeEach((to) => {
+  if (to.path !== "/login") {
+    if (!localCache.getCache("token")) {
+      // 没有token
+      ElMessage.warning("请先登录!")
+      router.push("/login")
+    }
+  }
+
+  if (to.path === "/main" || to.path === "/main/") {
+    // return firstMenu.path
+  }
 })
 
 export default router

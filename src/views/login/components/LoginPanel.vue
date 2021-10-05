@@ -31,15 +31,17 @@ import LoginAccount from "./LoginAccount.vue"
 export default defineComponent({
   components: { LoginAccount, LoginPhone },
   setup() {
-    const data = reactive({
-      isKeepPassword: true
-    })
+    // const data = reactive({
+    //   isKeepPassword: true
+    // })
+    const isKeepPassword = ref<boolean>(true)
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
     const handleLogin = () => {
-      accountRef.value?.loginAction()
+      accountRef.value?.loginAction(isKeepPassword.value)
     }
     return {
-      ...toRefs(data),
+      // ...toRefs(data),
+      isKeepPassword,
       handleLogin,
       accountRef
     }
