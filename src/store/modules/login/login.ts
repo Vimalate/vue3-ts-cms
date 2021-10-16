@@ -4,6 +4,7 @@ import { IRootState } from "@/store/types"
 import { LoginRequest, userInfoRequest, getUserMenusByRoleId } from "@/service/login/login"
 import { IAccount } from "@/service/login/types"
 import localCache from "@/utils/localCache"
+import { mapMenusToRoutes } from "@/utils/mapMenu"
 import router from "@/router"
 
 const loginModule: Module<ILoginState, IRootState> = {
@@ -25,6 +26,12 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     getMenu(state, userMenus: any) {
       state.userMenus = userMenus
+      // 映射route
+      const routes = mapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute("Main", route)
+      })
+      console.log(routes)
     }
   },
   actions: {

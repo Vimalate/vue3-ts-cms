@@ -23,7 +23,7 @@
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item :index="subitem.id + ''" @click="handleSelect(subitem)">
                 <i v-if="subitem.icon" :class="subitem.icon"></i>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
@@ -32,7 +32,7 @@
         </template>
         <!-- 一级菜单 -->
         <template v-else-if="item.type === 2">
-          <el-menu-item :index="item.id + ''">
+          <el-menu-item :index="item.id + ''" @click="handleSelect(item)">
             <i v-if="item.icon" :class="item.icon"></i>
             <span>{{ item.name }}</span>
           </el-menu-item>
@@ -45,6 +45,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue"
 import { useStore } from "@/store"
+import { useRouter } from "vue-router"
 
 export default defineComponent({
   props: {
@@ -55,9 +56,19 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
+    const router = useRouter()
     const menuList = computed(() => store.state.login.userMenus)
+    const handleSelect = (key: any) => {
+      console.log(key)
+      if (key.url) {
+        router.push(key.url)
+      } else {
+        router.push({ name: "NotFound" })
+      }
+    }
     return {
-      menuList
+      menuList,
+      handleSelect
     }
   }
 })
