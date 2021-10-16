@@ -9,7 +9,7 @@ export interface ITable {
   pageName: string
   propConfig: ITableProp[]
   isShowFooter?: boolean
-  childrenProp?: object // 表格树状结构
+  childrenProp?: any // 表格树状结构
 }
 
 export interface IPopconfirm {
